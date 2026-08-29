@@ -7,7 +7,6 @@ const dir = '/Users/nikhilzade/Downloads/Projects/portfolio-site';
 export async function pushToRemote(repoUrl, token) {
   console.log(`Pushing to ${repoUrl}...`);
 
-  // Add remote
   try {
     await git.addRemote({ fs, dir, remote: 'origin', url: repoUrl, force: true });
   } catch (e) {
@@ -27,7 +26,6 @@ export async function pushToRemote(repoUrl, token) {
   return pushResult;
 }
 
-// If run from command line with arguments: node push_to_github.mjs <repoUrl> <github_pat_token>
 if (process.argv[2] && process.argv[3]) {
   pushToRemote(process.argv[2], process.argv[3]).catch(console.error);
 }
