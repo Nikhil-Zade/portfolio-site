@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { educationData, experienceData, languagesData } from '../data/educationData';
-import { 
-  GraduationCap, 
-  Award, 
-  Briefcase, 
-  Calendar, 
-  MapPin, 
-  CheckCircle2, 
-  Languages, 
+import {
+  GraduationCap,
+  Award,
+  Briefcase,
+  Calendar,
+  MapPin,
+  CheckCircle2,
+  Languages,
   Building2,
   Compass,
   Brain
@@ -28,7 +28,7 @@ export const Education: React.FC = () => {
   return (
     <section id="experience" className="py-20 md:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
@@ -48,31 +48,28 @@ export const Education: React.FC = () => {
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'all'
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'all'
                   ? 'bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow-sm'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
+                }`}
             >
               All Trajectory
             </button>
             <button
               onClick={() => setActiveTab('experience')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'experience'
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'experience'
                   ? 'bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow-sm'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
+                }`}
             >
               Work Experience
             </button>
             <button
               onClick={() => setActiveTab('education')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'education'
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'education'
                   ? 'bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow-sm'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
+                }`}
             >
               Education & Programs
             </button>
@@ -81,7 +78,7 @@ export const Education: React.FC = () => {
 
         {/* Content Layout */}
         <div className="space-y-12">
-          
+
           {/* Work Experience Section */}
           {(activeTab === 'all' || activeTab === 'experience') && (
             <div className="space-y-6">
@@ -220,7 +217,7 @@ export const Education: React.FC = () => {
                   <span>Personal Goal Pursuit &bull; Career Break</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  UPSC Civil Services Preparation & Analytical Rigor
+                  UPSC Civil Services Preparation
                 </h3>
               </div>
 

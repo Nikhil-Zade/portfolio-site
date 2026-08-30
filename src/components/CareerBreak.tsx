@@ -31,7 +31,7 @@ export const CareerBreak: React.FC = () => {
                 <span>Personal Goal Pursuit &bull; Career Break</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                UPSC Civil Services Preparation & Analytical Rigor
+                UPSC Civil Services Preparation
               </h2>
             </div>
 
