@@ -7,6 +7,7 @@ import {
   Phone, 
   MapPin
 } from 'lucide-react';
+import { generateResumePdf } from '../utils/generateResumePdf';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -38,135 +39,17 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       origin: { y: 0.7 }
     });
 
-    const resumeContent = `========================================================================================
-NIKHIL ZADE | BUSINESS ANALYST & PRODUCT SPECIALIST
-nikhildzade@outlook.com | +91-7066720542 | Hyderabad, Telangana | LinkedIn
-========================================================================================
-
-SUMMARY:
-Business Analyst with 3 years of experience contributing to AI-enabled B2B SaaS product
-development and product management across healthcare and enterprise platforms. Experienced in
-Product Discovery, requirement gathering, feature prioritization, stakeholder management, Agile
-product delivery, and AI-assisted product development. Skilled in translating business problems
-into product requirements, writing User Stories, Epics, Acceptance Criteria, and collaborating
-with cross-functional teams to deliver scalable digital products. Hands-on experience with Figma,
-Miro, Jira, ChatGPT, GitHub Copilot, and Salesforce Einstein AI.
-
-----------------------------------------------------------------------------------------
-CORE SKILLS & COMPETENCIES:
-----------------------------------------------------------------------------------------
-* PRODUCT MANAGEMENT: Product Discovery, Product Strategy, Product Lifecycle Management,
-  Feature Prioritization, Product Roadmapping, Stakeholder Management, Cross-functional Collaboration
-* BUSINESS ANALYSIS: Requirement Gathering, BRD, FRD, User Stories, Epics, Acceptance Criteria,
-  Workflow Analysis, Product Documentation
-* AGILE: Scrum, Sprint Planning, Backlog Grooming, Requirement Refinement, Sprint Reviews,
-  Agile Product Delivery
-* AI PRODUCT DEVELOPMENT: AI-assisted Product Development, ChatGPT, GitHub Copilot,
-  Salesforce Einstein AI, AI APIs, Prompt Engineering
-* PRODUCT DESIGN: Figma, Miro, Wireframing, User Flows, Journey Mapping, MVP Definition
-* TECHNOLOGIES: Salesforce, AWS S3, DocuSign, GitHub, Jira, Trello, Power BI, Excel, AutoCAD
-* DOMAIN: B2B SaaS Products, Healthcare SaaS, Multi-Tenant SaaS Platforms
-
-----------------------------------------------------------------------------------------
-WORK EXPERIENCE & CAREER PURSUIT:
-----------------------------------------------------------------------------------------
-Option Matrix InfoTech, Hyderabad
-Business Analyst | Mar 2025 - Present
-• Driving product definition and feature delivery for a Salesforce-based B2B Clinical Trial
-  Management System (CTMS) used by US healthcare organizations.
-• Conduct Product Discovery sessions with stakeholders to identify business problems, define
-  product vision, and prioritize high-impact features.
-• Translate customer and business requirements into Product Requirement Documents (PRDs), BRDs,
-  User Stories, Epics, Acceptance Criteria, and functional specifications.
-• Partner with Product Owners, Engineering, QA, UI/UX designers, and client stakeholders
-  throughout the complete product lifecycle.
-• Define MVP scope, feature roadmap, release planning, and sprint goals for multiple modules.
-• Create wireframes, workflow diagrams, and product flows using Figma and Miro.
-• Participate in Sprint Planning, Backlog Grooming, Story Refinement, Sprint Reviews, and Daily
-  Stand-ups in Agile Scrum environment.
-• Perform impact analysis, effort estimation, feature prioritization, and change management.
-• Drive AI-assisted product development by defining workflows powered by Salesforce Einstein AI,
-  ChatGPT, and AI APIs.
-• Define business workflows for AWS S3 document management and DocuSign digital agreement integrations.
-• Collaborate closely with global stakeholders to validate requirements through demos and feedback.
-• Support strategic product roadmap planning for future integrations (EDC, eTMF, REDCap, patient engagement).
-
-Qloron Pvt. Ltd., Hyderabad
-Business Analyst | Jan 2023 - Jul 2024
-• Contributed to end-to-end product planning and workflow design for Sortboxs (sortboxs.com) — an all-in-one
-  multi-tenant HR & Business Management SaaS platform.
-• Conducted Product Discovery sessions with enterprise HR and operations leaders to map pain points in
-  disconnected tools and spreadsheet sprawl.
-• Authored BRDs, FRDs, User Stories, Epics, and Acceptance Criteria across Complete HRMS, Automated Payroll,
-  Attendance Tracking, Project Management, Lead Tracking, and Multi-Tenant RBAC modules.
-• Designed wireframes and user journeys in Figma/Miro for Employee Self-Service and HR Admin Dashboards.
-• Formulated calculation rules linking biometric attendance logs directly to automated compliant payroll processing.
-• Collaborated with Engineering, QA, and UI teams throughout Agile Scrum development, backlog grooming, and UAT.
-
-GGI Impact Lab, Remote
-Strategic Intern – Young Leaders Program (YLP) | Aug 2023 - Jan 2024
-• Assisted in structured problem analysis, documentation, and solution articulation in consulting-style assignments.
-• Contributed to execution planning across parallel workstreams in a globally distributed setup.
-• Strengthened stakeholder communication and cross-functional collaboration skills in remote environments.
-
-Personal Goal Pursuit | Career Break
-UPSC Civil Services Exam Preparation | Jan 2021 – Jan 2023 (2 Years Full-Time Preparation)
-• Dedicated 2 years towards UPSC Civil Services Examination, with 2 Mains written — a process
-  where only ~1% of ~1.3 million applicants advance to Mains stage annually.
-• Gained deep exposure across Polity, Governance, Macroeconomics, International Relations, Ethics,
-  Science & Tech, and Social Justice.
-• Developed multi-dimensional problem solving, high-pressure resilience, research synthesis,
-  and structured critical analysis skills.
-
-Pachurkar & Associates, Pune
-Civil Engineering Analyst | Jan 2019 - Jan 2021
-• Coordinated multi-stakeholder execution for 12 kms water pipeline and treatment infrastructure project
-  for Shirdi International Airport.
-• Liaised with Maharashtra Airport Development Company (MADC), Forest Dept., PWD, and local authorities.
-• Prepared project estimates, AutoCAD drawings, and progress dashboards (Excel & Power BI).
-• Supported milestone tracking, risk identification, and on-site quality validation.
-
-----------------------------------------------------------------------------------------
-KEY PROJECTS:
-----------------------------------------------------------------------------------------
-* SIGNAL - datosX (Clinical Trial Management System)
-  - Led product definition for a Salesforce-based B2B CTMS platform connecting Sponsors, Sites,
-    and Healthcare Organizations.
-  - Defined MVP scope, user journeys, Epics, User Stories, and AI-enabled reporting workflows.
-  - Ensured all product workflows aligned with HIPAA and GDPR compliance requirements.
-
-* Medical Life Care Solutions (MLCS) — Healthcare Collaboration Platform (medicallifecaresolutions.com)
-  - Led Product Discovery and requirement engineering for a med-legal SaaS platform connecting attorneys,
-    clinical evaluators, and certified life care planners.
-  - Defined 4-step workflow: Record Review -> Clinical & Cost Analysis -> Report Development -> Case Support.
-  - Designed AI medical record chronology extraction workflows and actuarial cost calculation engines for
-    lifetime healthcare damages modeling in litigation and settlement.
-
-* Sortboxs — All-in-One HR & Business Management Platform (sortboxs.com)
-  - Designed core workflows for an all-in-one SaaS platform unifying HRMS, Automated Payroll, Attendance,
-    Project Task Management, and Lead CRM.
-  - Authored BRDs, FRDs, User Stories, Multi-Tenant RBAC hierarchies, and automated payroll calculation rules.
-
-----------------------------------------------------------------------------------------
-EDUCATION:
-----------------------------------------------------------------------------------------
-* Dr. Babasaheb Ambedkar Marathwada University, Aurangabad
-  Bachelor of Engineering (B.E.) in Civil Engineering | Jun 2014 - Dec 2018
-
-----------------------------------------------------------------------------------------
-LANGUAGES:
-----------------------------------------------------------------------------------------
-* English: Professional
-* Hindi: Native
-========================================================================================`;
-
-    const element = document.createElement('a');
-    const file = new Blob([resumeContent], { type: 'text/plain;charset=utf-8' });
-    element.href = URL.createObjectURL(file);
-    element.download = 'Nikhil_Zade_Business_Analyst_Resume.txt';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    try {
+      generateResumePdf();
+    } catch (err) {
+      console.warn('Direct jsPDF generation error, downloading static PDF fallback:', err);
+      const link = document.createElement('a');
+      link.href = '/Nikhil_Zade_Business_Analyst_Resume.pdf';
+      link.download = 'Nikhil_Zade_Business_Analyst_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
@@ -197,7 +80,7 @@ LANGUAGES:
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-colors cursor-pointer"
             >
               <FileDown className="w-3.5 h-3.5" />
-              Download Resume
+              Download PDF
             </button>
             <button
               onClick={onClose}
@@ -354,14 +237,14 @@ LANGUAGES:
         {/* Modal Bottom CTA */}
         <div className="px-6 py-4 border-t border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between sticky bottom-0 z-20">
           <span className="text-xs text-slate-500 dark:text-slate-400">
-            Official text version ready for instant download
+            Official PDF version ready for instant download (ATS-Friendly)
           </span>
           <button
             onClick={handleDownload}
             className="flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-colors cursor-pointer"
           >
             <FileDown className="w-4 h-4" />
-            Download Complete Resume
+            Download PDF Resume
           </button>
         </div>
 

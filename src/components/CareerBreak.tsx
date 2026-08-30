@@ -52,7 +52,7 @@ export const CareerBreak: React.FC = () => {
             {/* Left: Journey & Intellectual Synthesis */}
             <div className="lg:col-span-7 space-y-3">
               <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                Dedicated 2.5 years to intensive UPSC preparation, qualifying for the <strong className="text-slate-900 dark:text-white">Mains stage twice</strong> (a benchmark achieved by ~1% of over 1.3 million annual applicants). This transformative journey served as an incubator for multi-dimensional problem-solving and structured critical analysis.
+                Dedicated 2 years to intensive UPSC preparation, qualifying for the <strong className="text-slate-900 dark:text-white">Mains stage twice</strong> (a benchmark achieved by ~1% of over 1.3 million annual applicants). This transformative journey served as an incubator for multi-dimensional problem-solving and structured critical analysis.
               </p>
 
               <ul className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
