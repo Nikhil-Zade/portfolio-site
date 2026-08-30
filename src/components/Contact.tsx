@@ -12,18 +12,20 @@ import {
 } from 'lucide-react';
 
 export const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     name: '',
     email: '',
     company: '',
     consultationType: 'Full-Time Business Analyst / Product Specialist Role',
     timeline: 'Immediate (Next 1-2 weeks)',
     message: ''
-  });
+  };
 
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const consultationTypes = [
     'Full-Time Business Analyst / Product Specialist Role',
@@ -47,24 +49,55 @@ export const Contact: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    // Simulate mock submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-
-      // Trigger celebratory confetti
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'd9416707-0e2f-4f82-affc-ef47e1862016',
+          subject: `Portfolio Inquiry from ${formData.name} (${formData.company.trim() || 'Direct'})`,
+          from_name: 'Portfolio Inquiry',
+          topic: formData.consultationType,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim() || 'Direct / Individual',
+          timeline: formData.timeline,
+          message: formData.message.trim()
+        })
       });
-    }, 800);
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setIsSubmitted(true);
+        setFormData(initialFormData);
+        setErrors({});
+
+        // Trigger celebratory confetti
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      } else {
+        setSubmitError(result.message || 'Unable to submit your message right now. Please try again or email directly.');
+      }
+    } catch {
+      setSubmitError('Network error while connecting to the contact service. Please try again or email directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -152,19 +185,12 @@ export const Contact: React.FC = () => {
                     Message Transmitted!
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-                    Thank you, <span className="font-semibold text-slate-900 dark:text-white">{formData.name}</span>. I've received your note regarding <span className="font-medium text-brand-600 dark:text-brand-400">{formData.consultationType}</span> and will reply promptly.
+                    Thank you! Your message has been sent successfully. I'll get back to you shortly.
                   </p>
                   <button
                     onClick={() => {
                       setIsSubmitted(false);
-                      setFormData({
-                        name: '',
-                        email: '',
-                        company: '',
-                        consultationType: 'Full-Time Business Analyst / Product Specialist Role',
-                        timeline: 'Immediate (Next 1-2 weeks)',
-                        message: ''
-                      });
+                      setSubmitError(null);
                     }}
                     className="mt-4 px-6 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   >
@@ -179,6 +205,21 @@ export const Contact: React.FC = () => {
                     </h3>
                     <span className="text-xs text-slate-400">* Required fields</span>
                   </div>
+
+                  {submitError && (
+                    <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-start gap-3">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <p className="font-semibold">{submitError}</p>
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400">
+                          If the problem persists, please email me directly at{' '}
+                          <a href="mailto:nikhildzade@outlook.com" className="font-semibold text-brand-600 dark:text-brand-400 underline">
+                            nikhildzade@outlook.com
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Consultation Type Selector */}
                   <div>
@@ -208,7 +249,10 @@ export const Contact: React.FC = () => {
                         type="text"
                         placeholder="e.g. Rahul Sharma / Hiring Manager"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: '' });
+                        }}
                         className={`w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border ${
                           errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-white/10 focus:ring-brand-500'
                         } text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2`}
@@ -228,7 +272,10 @@ export const Contact: React.FC = () => {
                         type="email"
                         placeholder="name@company.com"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: '' });
+                        }}
                         className={`w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border ${
                           errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-white/10 focus:ring-brand-500'
                         } text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2`}
@@ -282,7 +329,10 @@ export const Contact: React.FC = () => {
                       rows={4}
                       placeholder="Outline role expectations, product focus, or project details..."
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: '' });
+                      }}
                       className={`w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border ${
                         errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-white/10 focus:ring-brand-500'
                       } text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2`}
@@ -298,7 +348,7 @@ export const Contact: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl font-semibold text-xs bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                    className="w-full py-3.5 rounded-xl font-semibold text-xs bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
