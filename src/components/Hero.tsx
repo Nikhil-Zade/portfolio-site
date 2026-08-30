@@ -138,7 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenContact }) => {
                 <LinkedInIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/Nikhil-Zade"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub Profile"
